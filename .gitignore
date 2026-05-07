@@ -13,7 +13,7 @@ hs_err_pid*
 replay_pid*
 logcat.txt
 *.apks
-*.jar
 .gradle-local/
 .vscode/
 System.Drawing.Drawing2D.GraphicsPath
+bundletool*.jar
