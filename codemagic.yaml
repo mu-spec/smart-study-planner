@@ -9,6 +9,7 @@ workflows:
       - name: Install dependencies
         script: |
           npm ci
+          npm install --no-save @react-native-community/cli@latest
       - name: Patch ads module for RN compatibility
         script: |
           ADS_FILE="node_modules/react-native-google-mobile-ads/android/src/main/java/io/invertase/googlemobileads/ReactNativeGoogleMobileAdsModule.kt"
