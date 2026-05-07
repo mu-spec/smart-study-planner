@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Pressable, ScrollView, Share, StyleSheet, Text, View } from "react-native";
+import { Linking, Pressable, ScrollView, Share, StyleSheet, Text, View } from "react-native";
 import { useAppSettings } from "../context/AppSettingsContext";
 import { useTasks } from "../context/TaskContext";
 import DecorativeBackground from "../components/DecorativeBackground";
@@ -11,6 +11,7 @@ import { getRecentEvents } from "../services/eventLogService";
 
 const avatars = ["Bot", "Brain", "Rocket", "Book"];
 const themePacks = ["Classic", "Ocean", "Forest"];
+const APP_PACKAGE = "com.yourcompany.aismartstudyplanner";
 
 export default function SettingsScreen({ navigation }) {
   const {
@@ -44,6 +45,23 @@ export default function SettingsScreen({ navigation }) {
     await Share.share({ message: text });
   };
 
+  const openUrl = async (url) => {
+    const canOpen = await Linking.canOpenURL(url);
+    if (canOpen) {
+      await Linking.openURL(url);
+    }
+  };
+
+  const handleRateApp = async () => {
+    const playStoreAppUrl = `market://details?id=${APP_PACKAGE}`;
+    const webUrl = `https://play.google.com/store/apps/details?id=${APP_PACKAGE}`;
+    try {
+      await openUrl(playStoreAppUrl);
+    } catch {
+      await openUrl(webUrl);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <DecorativeBackground />
@@ -54,6 +72,9 @@ export default function SettingsScreen({ navigation }) {
           <Text style={styles.meta}>Export a report you can save or share.</Text>
           <Pressable style={styles.btn} onPress={handleExportReport}>
             <Text style={styles.btnText}>Export Report</Text>
+          </Pressable>
+          <Pressable style={[styles.btn, styles.rateBtn]} onPress={handleRateApp}>
+            <Text style={styles.btnText}>Rate App</Text>
           </Pressable>
         </View>
 
@@ -172,7 +193,11 @@ const createStyles = () =>
   btn: {
     backgroundColor: colors.primary,
     borderRadius: 10,
-    paddingVertical: 10
+    paddingVertical: 10,
+    marginBottom: 8
+  },
+  rateBtn: {
+    backgroundColor: colors.success
   },
   btnText: {
     color: "#FFFFFF",
