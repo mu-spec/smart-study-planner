@@ -21,7 +21,14 @@ workflows:
           npx expo prebuild --platform android
       - name: Generate release JS bundle for Gradle
         script: |
-          npx expo export:embed --platform android
+          mkdir -p android/app/src/main/assets-generated
+          mkdir -p android/app/src/main/res-generated
+          npx react-native bundle \
+            --platform android \
+            --dev false \
+            --entry-file index.js \
+            --bundle-output android/app/src/main/assets-generated/index.android.bundle \
+            --assets-dest android/app/src/main/res-generated
       - name: Build release APK
         script: |
           cd android
