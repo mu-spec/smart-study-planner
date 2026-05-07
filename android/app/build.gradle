@@ -63,26 +63,6 @@ react {
     autolinkLibrariesWithApp()
 }
 
-afterEvaluate {
-    def prebundleTask = tasks.findByName("createBundleReleaseJsAndAssets")
-    if (prebundleTask != null) {
-        prebundleTask.actions.clear()
-        prebundleTask.outputs.file(file("$projectDir/src/main/assets-generated/index.android.bundle"))
-        prebundleTask.outputs.dir(file("$projectDir/src/main/res-generated"))
-        prebundleTask.doLast {
-            def bundleFile = file("$projectDir/src/main/assets-generated/index.android.bundle")
-            if (!bundleFile.exists()) {
-                throw new GradleException("Missing prebundle at ${bundleFile}. Run expo export:embed first.")
-            }
-        }
-    }
-
-    def genRes = tasks.findByName("generateReleaseResources")
-    if (genRes != null && prebundleTask != null) {
-        genRes.dependsOn(prebundleTask)
-    }
-}
-
 /**
  * Set this to true in release builds to optimize the app using [R8](https://developer.android.com/topic/performance/app-optimization/enable-app-optimization).
  */
