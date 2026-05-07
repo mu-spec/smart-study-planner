@@ -31,6 +31,7 @@
     "react-native-screens": "~4.16.0"
   },
   "devDependencies": {
+    "@react-native/metro-config": "^0.85.3",
     "babel-preset-expo": "^11.0.0"
   }
 }
