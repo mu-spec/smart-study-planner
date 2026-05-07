@@ -19,6 +19,9 @@ workflows:
       - name: Generate native project and launcher icon sizes
         script: |
           npx expo prebuild --platform android
+      - name: Generate release JS bundle for Gradle
+        script: |
+          npx expo export:embed --platform android
       - name: Build release APK
         script: |
           cd android
