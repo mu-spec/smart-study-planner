@@ -1,0 +1,28 @@
+workflows:
+  android-release-apk:
+    name: Android Release APK
+    max_build_duration: 60
+    environment:
+      node: 20
+      java: 17
+    scripts:
+      - name: Install dependencies
+        script: |
+          npm ci
+      - name: Generate native project and launcher icon sizes
+        script: |
+          npx expo prebuild --platform android
+      - name: Build release APK
+        script: |
+          cd android
+          ./gradlew assembleRelease
+    artifacts:
+      - android/app/build/outputs/apk/release/*.apk
+      - android/app/build/outputs/mapping/release/*
+    publishing:
+      email:
+        recipients:
+          - your-email@example.com
+        notify:
+          success: true
+          failure: true
