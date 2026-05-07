@@ -9,6 +9,13 @@ workflows:
       - name: Install dependencies
         script: |
           npm ci
+      - name: Patch ads module for RN compatibility
+        script: |
+          ADS_FILE="node_modules/react-native-google-mobile-ads/android/src/main/java/io/invertase/googlemobileads/ReactNativeGoogleMobileAdsModule.kt"
+          if [ -f "$ADS_FILE" ]; then
+            perl -0777 -i -pe 's/\bcurrentActivity\b/reactApplicationContext.currentActivity/g' "$ADS_FILE"
+            perl -0777 -i -pe 's/reactApplicationContext\.reactApplicationContext\.currentActivity/reactApplicationContext.currentActivity/g' "$ADS_FILE"
+          fi
       - name: Generate native project and launcher icon sizes
         script: |
           npx expo prebuild --platform android
