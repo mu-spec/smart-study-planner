@@ -5,6 +5,13 @@ workflows:
     environment:
       node: 20
       java: 17
+      vars:
+        EXPO_PUBLIC_ADMOB_APP_ID_ANDROID: "ca-app-pub-7540130362404221~7560134937"
+        EXPO_PUBLIC_ADMOB_BANNER_ANDROID: "ca-app-pub-7540130362404221/7636156550"
+        EXPO_PUBLIC_ADMOB_INTERSTITIAL_ANDROID: "ca-app-pub-7540130362404221/5009993212"
+        EXPO_PUBLIC_ADMOB_APP_ID_IOS: "ca-app-pub-xxxxxxxxxxxxxxxx~bbbbbbbbbb"
+        EXPO_PUBLIC_ADMOB_BANNER_IOS: "ca-app-pub-xxxxxxxxxxxxxxxx/cccccccccc"
+        EXPO_PUBLIC_ADMOB_INTERSTITIAL_IOS: "ca-app-pub-xxxxxxxxxxxxxxxx/dddddddddd"
     scripts:
       - name: Install dependencies
         script: |
