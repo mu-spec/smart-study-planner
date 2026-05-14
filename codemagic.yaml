@@ -27,6 +27,15 @@ workflows:
       - name: Generate native project and launcher icon sizes
         script: |
           npx expo prebuild --platform android
+      - name: Normalize launcher resources
+        script: |
+          sed -i '' 's/@mipmap\/ic_launcher_v4/@mipmap\/ic_launcher/g' android/app/src/main/AndroidManifest.xml || true
+          rm -f android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_v2.xml
+          rm -f android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_v2_round.xml
+          rm -f android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_v3.xml
+          rm -f android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_v3_round.xml
+          rm -f android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_v4.xml
+          rm -f android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_v4_round.xml
       - name: Remove duplicate launcher png resources
         script: |
           find android/app/src/main/res -type f -name "ic_launcher.png" -delete
