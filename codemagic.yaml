@@ -27,9 +27,11 @@ workflows:
       - name: Generate native project and launcher icon sizes
         script: |
           npx expo prebuild --platform android
-      - name: Remove duplicate launcher webp resources
+      - name: Remove duplicate launcher png resources
         script: |
-          find android/app/src/main/res -type f -name "ic_launcher*.webp" -delete
+          find android/app/src/main/res -type f -name "ic_launcher.png" -delete
+          find android/app/src/main/res -type f -name "ic_launcher_round.png" -delete
+          find android/app/src/main/res -type f -name "ic_launcher_foreground.png" -delete
       - name: Build release APK
         script: |
           cd android
